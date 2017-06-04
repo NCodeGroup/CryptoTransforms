@@ -27,12 +27,25 @@ using NCode.ArrayLeases;
 
 namespace NCode.CryptoTransforms
 {
+    /// <summary>
+    /// Specifies whether white space should be ignored in the Base 64 transformation.
+    /// </summary>
     public enum FromBase64TransformMode
     {
+        /// <summary>
+        /// Specifies that white space should be ignored.
+        /// </summary>
         IgnoreWhiteSpaces = 0,
+
+        /// <summary>
+        /// Specifies that white space should not be ignored.
+        /// </summary>
         DoNotIgnoreWhiteSpaces = 1
     }
 
+    /// <summary>
+    /// Converts a <see cref="CryptoStream"/> from Base 64.
+    /// </summary>
     public class FromBase64Transform : ICryptoTransform
     {
         private readonly ArrayPool<byte> _poolBytes;
@@ -40,27 +53,41 @@ namespace NCode.CryptoTransforms
         private byte[] _workingBuffer = new byte[4];
         private int _workingIndex;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FromBase64Transform"/> class with the specified transformation mode.
+        /// </summary>
+        /// <param name="whitespaces">One of the <see cref="FromBase64TransformMode"/> values.</param>
         public FromBase64Transform(FromBase64TransformMode whitespaces = FromBase64TransformMode.IgnoreWhiteSpaces)
             : this(null, whitespaces)
         {
             // nothing
         }
 
-        public FromBase64Transform(ArrayPool<byte> poolBytes,
-            FromBase64TransformMode whitespaces = FromBase64TransformMode.IgnoreWhiteSpaces)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FromBase64Transform"/> class with the specified transformation mode and array byte pool.
+        /// </summary>
+        /// <param name="poolBytes">An <see cref="ArrayPool{T}"/> from where to allocate byte arrays.</param>
+        /// <param name="whitespaces">One of the <see cref="FromBase64TransformMode"/> values.</param>
+        public FromBase64Transform(ArrayPool<byte> poolBytes, FromBase64TransformMode whitespaces = FromBase64TransformMode.IgnoreWhiteSpaces)
         {
             _poolBytes = poolBytes ?? ArrayPool<byte>.Shared;
             _whitespaces = whitespaces;
         }
 
+        /// <inheritdoc />
         public int InputBlockSize => 1;
+
+        /// <inheritdoc />
         public int OutputBlockSize => 3;
 
+        /// <inheritdoc />
         public bool CanReuseTransform => true;
+
+        /// <inheritdoc />
         public bool CanTransformMultipleBlocks => true;
 
-        public virtual int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer,
-            int outputOffset)
+        /// <inheritdoc />
+        public virtual int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
             Guard.ValidateTransformBlock(inputBuffer, inputOffset, inputCount);
             if (_workingBuffer == null) throw new ObjectDisposedException(GetType().FullName);
@@ -81,6 +108,7 @@ namespace NCode.CryptoTransforms
             }
         }
 
+        /// <inheritdoc />
         public virtual byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {
             Guard.ValidateTransformBlock(inputBuffer, inputOffset, inputCount);
@@ -195,17 +223,27 @@ namespace NCode.CryptoTransforms
 
         #region IDisposable Members
 
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases the unmanaged resources used by the <see cref="FromBase64Transform"/>.
+        /// </summary>
         ~FromBase64Transform()
         {
             Dispose(false);
         }
 
+        /// <summary>
+        /// Releases the unmanaged resources used by the <see cref="FromBase64Transform"/>
+        /// class and optionally releases the managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged
+        /// resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposing) return;

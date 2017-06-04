@@ -46,6 +46,10 @@ namespace NCode.CryptoTransforms
     /// </remarks>
     public class HashTransform : DelegatingHashTransform
     {
+        /// <summary>
+        /// Creates an instance of the specified implementation of a hash algorithm.
+        /// </summary>
+        /// <param name="hashName">The hash algorithm implementation to use.</param>
         public HashTransform(string hashName)
             : base(HashProvider.Create(hashName))
         {

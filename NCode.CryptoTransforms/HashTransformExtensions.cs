@@ -24,6 +24,9 @@ using NCode.ArrayLeases;
 
 namespace NCode.CryptoTransforms
 {
+    /// <summary>
+    /// Provides various extensions methods to compute a cryptographic hash value using <see cref="IHashTransform"/>.
+    /// </summary>
     public static class HashTransformExtensions
     {
         // Copied from: coreclr/src/mscorlib/src/System/IO/Stream.cs
@@ -32,6 +35,12 @@ namespace NCode.CryptoTransforms
         // improvement in Copy performance.
         private const int DefaultCopyBufferSize = 81920;
 
+        /// <summary>
+        /// Computes the hash value for the specified byte array.
+        /// </summary>
+        /// <param name="transform">Represents the cryptographic hashing algorithm to use.</param>
+        /// <param name="inputBuffer">The input to compute the hash code for.</param>
+        /// <returns>The computed hash code.</returns>
         public static byte[] ComputeHash(this IHashTransform transform, byte[] inputBuffer)
         {
             if (transform == null)
@@ -42,6 +51,14 @@ namespace NCode.CryptoTransforms
             return transform.TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
         }
 
+        /// <summary>
+        /// Computes the hash value for the specified region of the specified byte array.
+        /// </summary>
+        /// <param name="transform">Represents the cryptographic hashing algorithm to use.</param>
+        /// <param name="inputBuffer">The input to compute the hash code for.</param>
+        /// <param name="inputOffset">The offset into the byte array from which to begin using data.</param>
+        /// <param name="inputCount">The number of bytes in the array to use as data.</param>
+        /// <returns>The computed hash code.</returns>
         public static byte[] ComputeHash(this IHashTransform transform, byte[] inputBuffer, int inputOffset,
             int inputCount)
         {
@@ -55,11 +72,24 @@ namespace NCode.CryptoTransforms
             return transform.TransformFinalBlock(inputBuffer, inputOffset, inputCount);
         }
 
+        /// <summary>
+        /// Computes the hash value for the specified <see cref="Stream"/> object.
+        /// </summary>
+        /// <param name="transform">Represents the cryptographic hashing algorithm to use.</param>
+        /// <param name="stream">The input to compute the hash code for.</param>
+        /// <returns>The computed hash code.</returns>
         public static byte[] ComputeHash(this IHashTransform transform, Stream stream)
         {
             return ComputeHash(transform, stream, DefaultCopyBufferSize);
         }
 
+        /// <summary>
+        /// Computes the hash value for the specified <see cref="Stream"/> object.
+        /// </summary>
+        /// <param name="transform">Represents the cryptographic hashing algorithm to use.</param>
+        /// <param name="stream">The input to compute the hash code for.</param>
+        /// <param name="bufferSize">The number of bytes buffered for reads from the stream.</param>
+        /// <returns>The computed hash code.</returns>
         public static byte[] ComputeHash(this IHashTransform transform, Stream stream, int bufferSize)
         {
             if (transform == null)

@@ -30,6 +30,10 @@ namespace NCode.CryptoTransforms
     {
         private readonly ICryptoTransform _inner;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegatingCryptoTransform"/> class.
+        /// </summary>
+        /// <param name="inner">The <see cref="ICryptoTransform"/> to delegate all calls to.</param>
         public DelegatingCryptoTransform(ICryptoTransform inner)
         {
             _inner = inner ?? throw new ArgumentNullException(nameof(inner));
@@ -63,6 +67,12 @@ namespace NCode.CryptoTransforms
         public virtual byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount) => _inner
             .TransformFinalBlock(inputBuffer, inputOffset, inputCount);
 
+        /// <summary>
+        /// Releases the unmanaged resources used by the <see cref="DelegatingCryptoTransform"/>
+        /// class and optionally releases the managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged
+        /// resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing) _inner.Dispose();

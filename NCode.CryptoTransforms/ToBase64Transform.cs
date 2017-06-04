@@ -25,43 +25,54 @@ using NCode.ArrayLeases;
 
 namespace NCode.CryptoTransforms
 {
-    public enum ToBase64TransformMode
-    {
-        Default = 0,
-        InsertNewLines = 1
-    }
-
+    /// <summary>
+    /// Converts a <see cref="CryptoStream"/> to Base 64.
+    /// </summary>
     public class ToBase64Transform : ICryptoTransform
     {
-        private const int CharsPerLine = 76;
         private readonly ArrayPool<byte> _poolBytes;
         private readonly ArrayPool<char> _poolChars;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ToBase64Transform"/> class.
+        /// </summary>
         public ToBase64Transform()
             : this(null, null)
         {
             // nothing
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ToBase64Transform"/> class with the specified array pools.
+        /// </summary>
+        /// <param name="poolBytes">An <see cref="ArrayPool{T}"/> from where to allocate <see cref="byte"/> arrays.</param>
+        /// <param name="poolChars">An <see cref="ArrayPool{T}"/> from where to allocate <see cref="char"/> arrays.</param>
         public ToBase64Transform(ArrayPool<byte> poolBytes, ArrayPool<char> poolChars)
         {
             _poolBytes = poolBytes ?? ArrayPool<byte>.Shared;
             _poolChars = poolChars ?? ArrayPool<char>.Shared;
         }
 
+        /// <inheritdoc />
         public bool CanReuseTransform => true;
+
+        /// <inheritdoc />
         public bool CanTransformMultipleBlocks => true;
 
+        /// <inheritdoc />
         public int InputBlockSize => 3;
+
+        /// <inheritdoc />
         public int OutputBlockSize => 4;
 
+        /// <inheritdoc />
         public void Dispose()
         {
             // nothing
         }
 
-        public virtual int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer,
-            int outputOffset)
+        /// <inheritdoc />
+        public virtual int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
             Guard.ValidateTransformBlock(inputBuffer, inputOffset, inputCount);
 
@@ -83,6 +94,7 @@ namespace NCode.CryptoTransforms
             }
         }
 
+        /// <inheritdoc />
         public virtual byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {
             Guard.ValidateTransformBlock(inputBuffer, inputOffset, inputCount);
@@ -106,6 +118,11 @@ namespace NCode.CryptoTransforms
             }
         }
 
+        /// <summary>
+        /// Calculates the number of base 64 characters needed to represent the specified number of bytes.
+        /// </summary>
+        /// <param name="numBytes">The number of bytes.</param>
+        /// <returns>The number of base 64 characters needed to represent the specified number of bytes.</returns>
         public static int DetermineNumCharsForNumBytes(int numBytes)
         {
             // every 3 bytes is encoded into 4 chars rounded up to multiples of 4 chars

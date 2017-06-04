@@ -41,6 +41,7 @@ namespace NCode.CryptoTransforms
         /// <inheritdoc />
         public virtual int OutputBlockSize => 1;
 
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
@@ -71,6 +72,12 @@ namespace NCode.CryptoTransforms
             return buffer;
         }
 
+        /// <summary>
+        /// Releases the unmanaged resources used by the <see cref="NullTransform"/>
+        /// class and optionally releases the managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged
+        /// resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             // nothing

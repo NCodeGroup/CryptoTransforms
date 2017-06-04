@@ -29,6 +29,10 @@ namespace NCode.CryptoTransforms
     {
         private readonly IHashTransform _inner;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegatingHashTransform"/> class.
+        /// </summary>
+        /// <param name="inner">The <see cref="IHashTransform"/> to delegate all calls to.</param>
         public DelegatingHashTransform(IHashTransform inner)
             : base(inner)
         {
