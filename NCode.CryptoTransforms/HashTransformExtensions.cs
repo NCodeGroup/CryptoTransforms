@@ -108,7 +108,8 @@ namespace NCode.CryptoTransforms
                     read = stream.Read(buffer, 0, buffer.Length);
                     if (read > 0)
                         transform.TransformBlock(buffer, 0, read, null, 0);
-                } while (read > 0);
+                }
+                while (read > 0);
             }
             transform.TransformFinalBlock(EmptyArray<byte>.Value, 0, 0);
 

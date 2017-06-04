@@ -28,6 +28,17 @@
     https://github.com/onovotny/Zeroconf/blob/dev/Zeroconf/Zeroconf.csproj
   -->
 
+  <PropertyGroup>
+
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+
+    <Version>1.0.0</Version>
+
+    <Description>This library provides adapters for the missing hashing and base 64 algorithms in the .NET Standard frameworks. Specifically this library provides implementations of ICryptoTransform for HashAlgorithm, ToBase64Transform, and FromBase64Transform.</Description>
+    <PackageTags>ICryptoTransform;HashAlgorithm;ToBase64Transform;FromBase64Transform;CryptoStream;Base64;Hash</PackageTags>
+
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Platforms\**\*.*" />
     <None Include="Platforms\**\*.*" />
