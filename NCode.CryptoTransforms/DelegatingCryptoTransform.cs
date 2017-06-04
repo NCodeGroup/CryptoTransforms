@@ -59,13 +59,12 @@ namespace NCode.CryptoTransforms
         public virtual int OutputBlockSize => _inner.OutputBlockSize;
 
         /// <inheritdoc />
-        public virtual int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer,
-            int outputOffset) => _inner.TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer,
-            outputOffset);
+        public virtual int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
+            => _inner.TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, outputOffset);
 
         /// <inheritdoc />
-        public virtual byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount) => _inner
-            .TransformFinalBlock(inputBuffer, inputOffset, inputCount);
+        public virtual byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
+            => _inner.TransformFinalBlock(inputBuffer, inputOffset, inputCount);
 
         /// <summary>
         /// Releases the unmanaged resources used by the <see cref="DelegatingCryptoTransform"/>

@@ -48,7 +48,9 @@ namespace NCode.CryptoTransforms
             if (inputBuffer == null)
                 throw new ArgumentNullException(nameof(inputBuffer));
 
-            return transform.TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
+            transform.TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
+
+            return transform.Hash;
         }
 
         /// <summary>
@@ -59,8 +61,7 @@ namespace NCode.CryptoTransforms
         /// <param name="inputOffset">The offset into the byte array from which to begin using data.</param>
         /// <param name="inputCount">The number of bytes in the array to use as data.</param>
         /// <returns>The computed hash code.</returns>
-        public static byte[] ComputeHash(this IHashTransform transform, byte[] inputBuffer, int inputOffset,
-            int inputCount)
+        public static byte[] ComputeHash(this IHashTransform transform, byte[] inputBuffer, int inputOffset, int inputCount)
         {
             if (transform == null)
                 throw new ArgumentNullException(nameof(transform));
@@ -69,7 +70,9 @@ namespace NCode.CryptoTransforms
 
             Guard.ValidateTransformBlock(inputBuffer, inputOffset, inputCount);
 
-            return transform.TransformFinalBlock(inputBuffer, inputOffset, inputCount);
+            transform.TransformFinalBlock(inputBuffer, inputOffset, inputCount);
+
+            return transform.Hash;
         }
 
         /// <summary>
