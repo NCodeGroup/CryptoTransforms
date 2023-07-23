@@ -1,48 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <!--
-    Property Functions
-    https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions
-
-      $(MSBuildProjectDirectory)
-      $(MSBuildThisFileDirectory)
-
-      $([System.IO.Path]::Combine())
-      $([System.IO.Path]::GetFileName())
-      $([System.IO.Path]::GetDirectoryName())
-
-      $([MSBuild]::GetPathOfFileAbove())
-      $([MSBuild]::GetDirectoryNameOfFileAbove())
-
-    NuGet pack and restore as MSBuild targets
-    https://docs.microsoft.com/en-us/nuget/schema/msbuild-targets
-
-    Creating NuGet packages
-    https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package
-
-    .nuspec reference
-    https://docs.microsoft.com/en-us/nuget/schema/nuspec
-    
-    Platform trick taken from:
-    https://github.com/onovotny/Zeroconf/blob/dev/Zeroconf/Zeroconf.csproj
-  -->
+<Project>
 
   <PropertyGroup>
-
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
-
-    <Version>1.0.0</Version>
-
     <Description>This library provides adapters for the missing hashing and base 64 algorithms in the .NET Standard frameworks. Specifically this library provides implementations of ICryptoTransform for HashAlgorithm, ToBase64Transform, and FromBase64Transform.</Description>
     <PackageTags>ICryptoTransform;HashAlgorithm;ToBase64Transform;FromBase64Transform;CryptoStream;Base64;Hash</PackageTags>
-
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Platforms\**\*.*" />
-    <None Include="Platforms\**\*.*" />
-    <Compile Include="Platforms\$(TargetFramework)\*.cs" />
-  </ItemGroup>
 
 </Project>
