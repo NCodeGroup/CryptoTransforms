@@ -123,17 +123,10 @@ existing `Convert.FromBase64CharArray` and `Convert.ToBase64CharArray` builtin m
 Please provide any feedback, comments, or issues to this GitHub project [here][issues].
 
 [adapter]: https://en.wikipedia.org/wiki/Adapter_pattern
-
 [issues]: https://github.com/NCodeGroup/NCode.CryptoTransforms/issues
-
 [.NET Standard]: https://docs.microsoft.com/en-us/dotnet/standard/library
-
 [.NET Standard 2.0]: https://github.com/dotnet/standard/blob/master/docs/netstandard-20/README.md
-
 [.NET API Browser]: https://docs.microsoft.com/en-us/dotnet/api/
-
 [.NET Core 1.0.0 - HashAlgorithm : IDisposable]: https://github.com/dotnet/corefx/blob/release/1.0.0/src/System.Security.Cryptography.Primitives/src/System/Security/Cryptography/HashAlgorithm.cs
-
 [.NET Core 1.1.0 - HashAlgorithm : IDisposable]: https://github.com/dotnet/corefx/blob/release/1.1.0/src/System.Security.Cryptography.Primitives/src/System/Security/Cryptography/HashAlgorithm.cs
-
 [.NET Core 2.0.0 - HashAlgorithm : ICryptoTransform]: https://github.com/dotnet/corefx/blob/release/2.0.0/src/System.Security.Cryptography.Primitives/src/System/Security/Cryptography/HashAlgorithm.cs
