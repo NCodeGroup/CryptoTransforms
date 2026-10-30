@@ -1,4 +1,22 @@
-﻿[![ci](https://github.com/NCodeGroup/CryptoTransforms/actions/workflows/main.yml/badge.svg)](https://github.com/NCodeGroup/CryptoTransforms/actions)
+﻿# Deprecated
+
+> **This library is retired. What it adapted is built into .NET.**
+>
+> It existed because .NET Standard 1.x lacked `HashAlgorithm : ICryptoTransform`, `ToBase64Transform` and `FromBase64Transform`. All three are in `System.Security.Cryptography` since .NET Standard 2.0 and .NET Core 2.0, so `HashAlgorithm` works with `CryptoStream` directly:
+>
+> ```csharp
+> using var hasher = SHA256.Create();
+> using var stream = new CryptoStream(source, hasher, CryptoStreamMode.Read);
+> // read the stream to its end, then use hasher.Hash
+> ```
+>
+> - To hash a stream without a `CryptoStream`, use `SHA256.HashData(Stream)` or `SHA256.HashDataAsync(Stream, CancellationToken)` (.NET 7 and later), or `IncrementalHash` to feed data in pieces.
+> - For base64, use `ToBase64Transform` and `FromBase64Transform` with `CryptoStream`, or `Convert.ToBase64String` and `System.Buffers.Text.Base64` for buffers and spans.
+> - Nothing replaces it on .NET Standard 1.x, which Microsoft no longer supports.
+>
+> The NuGet package `NCode.CryptoTransforms` is deprecated and this repository is archived. The code stays available as it is.
+
+[![ci](https://github.com/NCodeGroup/CryptoTransforms/actions/workflows/main.yml/badge.svg)](https://github.com/NCodeGroup/CryptoTransforms/actions)
 
 # Overview
 
